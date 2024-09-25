@@ -8,8 +8,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from .models import CategoryModel, BrandModel
-from .serializers import CategorySerializer, BrandSerializer
+from .models import CategoryModel, BrandModel, ProductModel
+from .serializers import CategorySerializer, BrandSerializer, ProductSerializer
 
 
 class CategoryView(viewsets.ViewSet):
@@ -28,6 +28,13 @@ class BrandView(viewsets.ViewSet):
     def list(self, request):
         queryset = BrandModel.objects.all()
         serializer = BrandSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class ProductView(viewsets.ViewSet):
+
+    def list(self, request):
+        queryset = ProductModel.objects.all()
+        serializer = ProductSerializer(queryset, many=True)
         return Response(serializer.data)
 
 

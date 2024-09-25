@@ -9,13 +9,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductModel
-        fields = "__all__"
-
-
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = BrandModel
+        fields = "__all__"
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    brand = BrandSerializer()
+    category = CategorySerializer()
+    class Meta:
+        model = ProductModel
         fields = "__all__"
