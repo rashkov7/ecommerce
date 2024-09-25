@@ -1,3 +1,5 @@
+from sys import modules
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -6,8 +8,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from .models import CategoryModel
-from .serializers import CategorySerializer
+from .models import CategoryModel, BrandModel
+from .serializers import CategorySerializer, BrandSerializer
+
 
 class CategoryView(viewsets.ViewSet):
     """
@@ -20,5 +23,11 @@ class CategoryView(viewsets.ViewSet):
         logger.info(f"Categories: {queryset}")
         return Response(serializer.data)
 
+class BrandView(viewsets.ViewSet):
+
+    def list(self, request):
+        queryset = BrandModel.objects.all()
+        serializer = BrandSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
